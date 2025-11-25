@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat App</title>
+    <script defer src="/client.js"></script> <!-- Load client.js -->
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <!-- <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 20px; }
+        ul { list-style: none; padding: 0; max-width: 600px; margin: 0 auto; }
+        li { margin: 5px 0; }
+        input { padding: 10px; width: 80%; margin: 10px 0; }
+        button { padding: 10px; cursor: pointer; }
+        #messages { border: 1px solid #ccc; padding: 10px; max-height: 300px; overflow-y: auto; }
+    </style> -->
+</head>
+<body>
+    <h1>Chat App</h1>
+    <ul>
+        <li>
+            <a href="#">subs</a>
+        </li>
+    </ul>
+    <!-- <div> -->
+
+        <div id="container">
+            <div id="users">
+                <h3>Users</h3>
+                <ul id="user-list"></ul>
+             
+
+                
+        <input id="username" placeholder="Enter your username..." autocomplete="off">
+        <button onclick="setUsername()">Join Chat</button>
+    </div>
+    <ul id="messages"></ul>
+    <input id="message" placeholder="Type a message..." autocomplete="off" disabled>
+    <button onclick="sendMessage()" disabled>Send</button>
+</body>
+</html>
