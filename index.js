@@ -7,19 +7,17 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "*",
+    origin: ["http://localhost:3000", "https://cool-naiad-82c39d.netlify.app"],
     methods: ["GET", "POST"],
   },
 });
 
 // Store users per room
-const rooms = {}; 
-// rooms = { roomName: [ { id, username } ] }
+const rooms = {};
 
 io.on("connection", (socket) => {
   console.log("User connected:", socket.id);
 
-  // JOIN ROOM
   socket.on("joinRoom", ({ username, room }) => {
     socket.join(room);
 
@@ -28,11 +26,9 @@ io.on("connection", (socket) => {
 
     io.to(room).emit("user connected", `${username} joined the room`);
 
-    const userList = rooms[room].map((u) => u.username);
-    io.to(room).emit("userList", userList);
+    io.to(room).emit("userList", rooms[room].map((u) => u.username));
   });
 
-  // CREATE ROOM
   socket.on("createRoom", ({ username, room }) => {
     socket.join(room);
 
@@ -41,16 +37,13 @@ io.on("connection", (socket) => {
 
     io.to(room).emit("user connected", `${username} created the room`);
 
-    const userList = rooms[room].map((u) => u.username);
-    io.to(room).emit("userList", userList);
+    io.to(room).emit("userList", rooms[room].map((u) => u.username));
   });
 
-  // SEND MESSAGE ONLY TO ROOM
   socket.on("chat message", ({ room, message, username }) => {
     io.to(room).emit("chat message", { username, message });
   });
 
-  // DISCONNECT
   socket.on("disconnect", () => {
     for (const room in rooms) {
       rooms[room] = rooms[room].filter((u) => u.id !== socket.id);
@@ -65,6 +58,6 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(5000, () => {
-  console.log("Server running at http://localhost:5000");
+server.listen(process.env.PORT || 5000, () => {
+  console.log("Server running...");
 });
