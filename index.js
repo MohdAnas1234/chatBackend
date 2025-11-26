@@ -26,16 +26,25 @@ const server = http.createServer(app);
 // });
 
 const io = new Server(server, {
- cors: {
- origin: [
+  cors: {
+    origin: (origin, callback) => {
+      const allowedOrigins = [
         "http://localhost:3000",
-        "https://cool-naiad-82c39d.netlify.app", // Main Netlify domain
-        "https://*.netlify.app", // Wildcard for Netlify previews
-        "https://chatkaro-vfs3.onrender.com" // Backend itself
-    ],
- methods: ["GET", "POST"],
- },
+        "https://cool-naiad-82c39d.netlify.app"
+      ];
+
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    methods: ["GET", "POST"],
+    credentials: true,
+  }
 });
+
+
 
 
 
