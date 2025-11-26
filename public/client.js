@@ -23,7 +23,7 @@ function sendMessage() {
 }
 
 // Load the notification sound
-const messageTone = new Audio('/backend/public/smsTone.mp3'); // Path to the audio file
+const messageTone = new Audio('/smsTone.mp3'); // Path to the audio file
 
 // Play the notification sound
 function playTone() {
