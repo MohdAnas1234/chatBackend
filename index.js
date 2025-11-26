@@ -12,18 +12,33 @@ const server = http.createServer(app);
 //   },
 // });
 
-const io = new Server(server, {
-  cors: {
-    origin: [
-        "http://localhost:3000",
-        "https://chatkaro-vfs3.onrender.com",
+// const io = new Server(server, {
+//  cors: {
+//  origin: [
+//         "http://localhost:3000",
+//         "https://chatkaro-vfs3.onrender.com",
         
-        // CRITICAL FIX: Allow all Netlify subdomains
-        "https://*.netlify.app" 
+//         // CRITICAL FIX: Allow all Netlify subdomains
+//         "https://*.netlify.app" 
+//     ],
+//  methods: ["GET", "POST"],
+//  },
+// });
+
+const io = new Server(server, {
+ cors: {
+ origin: [
+        "http://localhost:3000",
+        "https://cool-naiad-82c39d.netlify.app", // Main Netlify domain
+        "https://*.netlify.app", // Wildcard for Netlify previews
+        "https://chatkaro-vfs3.onrender.com" // Backend itself
     ],
-    methods: ["GET", "POST"],
-  },
+ methods: ["GET", "POST"],
+ },
 });
+
+
+
 
 // Store users per room
 const rooms = {};
