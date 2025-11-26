@@ -15,9 +15,11 @@ const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
     origin: [
-        "http://localhost:3000", // For local testing
-        "https://cool-naiad-82c39d.netlify.app", // The deployed Netlify Frontend (HTTPS!)
-        "https://chatkaro-vfs3.onrender.com" // The deployed Render Backend itself (HTTPS!)
+        "http://localhost:3000",
+        "https://chatkaro-vfs3.onrender.com",
+        
+        // CRITICAL FIX: Allow all Netlify subdomains
+        "https://*.netlify.app" 
     ],
     methods: ["GET", "POST"],
   },
