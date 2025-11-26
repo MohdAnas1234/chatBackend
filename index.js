@@ -5,11 +5,22 @@ const { Server } = require("socket.io");
 const app = express();
 const server = http.createServer(app);
 
+// const io = new Server(server, {
+//   cors: {
+//     origin: ["http://localhost:3000", "https://cool-naiad-82c39d.netlify.app"],
+//     methods: ["GET", "POST"],
+//   },
+// });
+
 const io = new Server(server, {
-  cors: {
-    origin: ["http://localhost:3000", "https://cool-naiad-82c39d.netlify.app"],
-    methods: ["GET", "POST"],
-  },
+  cors: {
+    origin: [
+        "http://localhost:3000", // For local testing
+        "https://cool-naiad-82c39d.netlify.app", // The deployed Netlify Frontend (HTTPS!)
+        "https://chatkaro-vfs3.onrender.com" // The deployed Render Backend itself (HTTPS!)
+    ],
+    methods: ["GET", "POST"],
+  },
 });
 
 // Store users per room
